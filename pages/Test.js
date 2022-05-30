@@ -40,6 +40,7 @@ export default function Test() {
       const nTasks = 1 + Math.floor(Math.random() * 3);
       for (let j = 0; j < nTasks; j++) initialTasks.push(newTask(i, "New Task", j));
     }
+    console.log(JSON.stringify(initialTasks));
     setTasks(initialTasks);
   }, []);
 

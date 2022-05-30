@@ -1,22 +1,26 @@
-import { getUsersDash } from "../../lib/firebase";
+import { useEffect, useState } from "react";
 import Dash from "../../components/Dash";
-import { useState } from "react";
+import { getUserTasks, addTask, editTask, deleteTask } from "../../lib/firebase";
 
-export default function UserPage({ columns }) {
-  const [initialDashboard, setInitialDashboard] = useState(columns);
+export default function UserPage({ initialTasks, userId }) {
+  function handleUpdate(type, task) {
+    task.userId = userId;
+    if (type === "add") {
+      addTask(task);
+    } else if (type === "edit") {
+      editTask(task);
+    } else if (type === "delete") {
+      deleteTask(task);
+    }
+  }
 
-  return (
-    <main>
-      <div className="card">
-        <h2>Welcome to your board </h2>
-      </div>
-      <Dash columns={columns} handleStateChange={handleStateChange} />
-    </main>
-  );
+  return <Dash initialTasks={initialTasks} handleUpdate={handleUpdate} />;
 }
 
 export async function getServerSideProps({ query }) {
-  const columns = await getUsersDash(query.uid);
-  console.log(columns);
-  return { props: { columns: columns } };
+  const initialTasks = await getUserTasks(query.uid);
+  const userId = query.uid;
+  console.log("getServerSideProps");
+  console.log(initialTasks);
+  return { props: { initialTasks, userId } };
 }
