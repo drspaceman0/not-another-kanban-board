@@ -1,16 +1,19 @@
 import Link from "next/link";
 import { useContext } from "react";
 import { UserContext } from "../lib/context";
+import LogoImage from "../public/logo.png";
 
-// Top navbar
 export default function Navbar() {
   const { user, username } = useContext(UserContext);
+  console.log(LogoImage);
   return (
     <nav className="navbar">
       <ul>
         <li>
           <Link href="/">
-            <button className="btn-logo">FEED</button>
+            <p className="logo">
+              Not Another<br></br>Kanban Board!!!
+            </p>
           </Link>
         </li>
 
@@ -18,13 +21,13 @@ export default function Navbar() {
         {user && (
           <>
             <li className="push-left">
-              <Link href="/admin">
-                <button className="btn-blue">Write Posts</button>
+              <Link href={`/${username}`}>
+                <img className="profile-pic" src={user?.photoURL || "/userimage.png"} />
               </Link>
             </li>
-            <li>
-              <Link href={`/${username}`}>
-                <img src={user?.photoURL || "/userimage.png"} />
+            <li className="logout-button">
+              <Link href="/logout">
+                <button className="btn-gray">Logout</button>
               </Link>
             </li>
           </>
