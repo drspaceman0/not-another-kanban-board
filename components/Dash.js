@@ -21,7 +21,7 @@ export default function Dash({ initialTasks, handleUpdate }) {
 
   useEffect(() => {
     if (!taskUpdate) return;
-    // handleUpdate(taskUpdate.type, taskUpdate.task);
+    handleUpdate(taskUpdate.type, taskUpdate.task);
     setTaskUpdate(null);
   }, [taskUpdate]);
 

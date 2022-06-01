@@ -25,6 +25,7 @@ export async function getServerSideProps({ query }) {
   if (initialTasks && initialTasks.length === 0) {
     const data = '[{"message":"My First task!","id":"6m6hy","userId":"","columnId":0,"order":0}]';
     initialTasks = JSON.parse(data);
+    addTask(initialTasks[0]);
   }
   return { props: { initialTasks, userId } };
 }

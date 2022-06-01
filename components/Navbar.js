@@ -32,7 +32,7 @@ export default function Navbar() {
         {user && (
           <>
             <li className="push-left">
-              <Link href={`/${username}`}>
+              <Link href={`/account`}>
                 <img className="profile-pic" src={user?.photoURL || "/userimage.png"} />
               </Link>
             </li>
