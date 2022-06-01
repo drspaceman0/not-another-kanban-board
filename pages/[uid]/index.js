@@ -20,9 +20,11 @@ export default function UserPage({ initialTasks, userId }) {
 }
 
 export async function getServerSideProps({ query }) {
-  const initialTasks = await getUserTasks(query.uid);
+  let initialTasks = await getUserTasks(query.uid);
   const userId = query.uid;
-  console.log("getServerSideProps");
-  console.log(initialTasks);
+  if (initialTasks && initialTasks.length === 0) {
+    const data = '[{"message":"My First task!","id":"6m6hy","userId":"","columnId":0,"order":0}]';
+    initialTasks = JSON.parse(data);
+  }
   return { props: { initialTasks, userId } };
 }

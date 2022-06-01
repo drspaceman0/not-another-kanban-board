@@ -1,5 +1,4 @@
 import { useState, useReducer, useEffect } from "react";
-import Divider from "@mui/material/Divider";
 import Paper from "@mui/material/Paper";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
@@ -9,11 +8,8 @@ import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 
 import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 
@@ -25,8 +21,7 @@ export default function Dash({ initialTasks, handleUpdate }) {
 
   useEffect(() => {
     if (!taskUpdate) return;
-
-    handleUpdate(taskUpdate.type, taskUpdate.task);
+    // handleUpdate(taskUpdate.type, taskUpdate.task);
     setTaskUpdate(null);
   }, [taskUpdate]);
 
@@ -41,16 +36,12 @@ export default function Dash({ initialTasks, handleUpdate }) {
   };
 
   const editTask = (newMessage, task) => {
-    console.log("editTask");
-    console.log(task);
     const editedTask = Object.assign({}, task);
     editedTask.message = newMessage;
     setTasks([...tasks.filter((t) => t.id !== task.id), editedTask]);
     setTaskUpdate({ type: "edit", task: editedTask });
   };
   const deleteTask = (task) => {
-    console.log("deleteTask");
-    console.log(task);
     setTasks(tasks.filter((t) => t.id !== task.id));
     setTaskUpdate({ type: "delete", task: task });
   };
@@ -72,8 +63,6 @@ export default function Dash({ initialTasks, handleUpdate }) {
       });
     }
   }
-  console.log("columns");
-  console.log(columns);
   return (
     <>
       <Stack className="columns" direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ p: { xs: 1, sm: 1, md: 4 } }}>
