@@ -1,11 +1,22 @@
 import Link from "next/link";
+import { auth, googleAuthProvider, addUser } from "../lib/firebase";
 import { useContext } from "react";
 import { UserContext } from "../lib/context";
 import LogoImage from "../public/logo.png";
 
 export default function Navbar() {
   const { user, username } = useContext(UserContext);
-  console.log(LogoImage);
+
+  function SignInButton() {
+    const signInWithGoogle = async () => {
+      const { user } = await auth.signInWithPopup(googleAuthProvider);
+    };
+    return (
+      <button className="btn-google" onClick={signInWithGoogle}>
+        <img src={"/google.png"} /> Sign in with Google
+      </button>
+    );
+  }
   return (
     <nav className="navbar">
       <ul>
@@ -26,7 +37,7 @@ export default function Navbar() {
               </Link>
             </li>
             <li className="logout-button">
-              <Link href="/logout">
+              <Link href="/Logout">
                 <button className="btn-gray">Logout</button>
               </Link>
             </li>
@@ -36,9 +47,7 @@ export default function Navbar() {
         {/* user is not logged in */}
         {!user && (
           <li>
-            <Link href="/enter">
-              <button className="btn-blue">Log in</button>
-            </Link>
+            <SignInButton />
           </li>
         )}
       </ul>
